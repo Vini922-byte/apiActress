@@ -18,13 +18,13 @@ db = SQLAlchemy(app)
 # Definição do Modelo de Dados para 'Actress'
 class Actress(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    real_name = db.Column(db.String(100))
-    birth_date = db.Column(db.String(100))
-    nationality = db.Column(db.String(100))
-    ethnicity = db.Column(db.String(100))  # Vamos armazenar como uma string JSON
-    tags = db.Column(db.String(100))
-    images = db.Column(db.String(100))
+    name = db.Column(db.String(255), nullable=False)  # Alterando de 100 para 255
+    real_name = db.Column(db.String(255))  # Alterando de 100 para 255
+    birth_date = db.Column(db.String(100))  # Deixa o birth_date como está se necessário
+    nationality = db.Column(db.String(255))  # Alterando de 100 para 255
+    ethnicity = db.Column(db.Text)  # Alterando para TEXT
+    tags = db.Column(db.Text)  # Alterando para TEXT
+    images = db.Column(db.Text)  # Alterando para TEXT
 
     def __repr__(self):
         return f'<Actress {self.name}>'
@@ -45,6 +45,7 @@ class Actress(db.Model):
 # Criando as tabelas no banco de dados
 @app.before_request
 def create_tables():
+    db.drop_all()  # Isto excluirá todas as tabelas existentes
     db.create_all()
 
 # Rotas da API
