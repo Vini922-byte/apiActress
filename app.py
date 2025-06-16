@@ -43,7 +43,7 @@ class Actress(db.Model):
         }
 
 # Criando as tabelas no banco de dados
-@app.before_first_request
+@app.before_request
 def create_tables():
     db.create_all()
 
